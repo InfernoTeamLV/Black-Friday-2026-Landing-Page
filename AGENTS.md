@@ -30,12 +30,10 @@ The sale's official name is **The Blackout**; use it consistently in campaign co
   scans with Evolt 360. The Fire Pass purchase limit is presented in
   package details rather than on the card. Fire Pass includes access to IHP and
   Cyclone classes and TNT sessions, with 20 classes per pass and a limit of two
-  passes per person and a use-by date of March 31, 2027. The user supplied the FAQ
-  terms: the VIP/renewal waitlist opens November 10; public pricing opens November 27
-  at 6 a.m. PST; The Blackout ends November 30 at 11:59 p.m. PST.
-  Display these dates as information only; the user manages sale
-  availability. Returning members whose membership ended six months or more
-  ago use the new-member annual offer. Remaining full terms and checkout
+  passes per person and a use-by date of March 31, 2027. The FAQ omits sale timing.
+  Its returning-member answer directs guests to the new-member Annual Membership
+  without specifying a minimum break. The user manages actual sale availability.
+  Remaining full terms and checkout
   configuration are still being finalized. Offer pricing comes from the Mindbody widgets.
   Card selection is not verified eligibility. Mindbody must enforce coaching's
   annual membership prerequisite and purchase limits.

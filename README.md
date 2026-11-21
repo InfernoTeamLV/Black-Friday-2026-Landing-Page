@@ -117,11 +117,9 @@ See [HTML dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/El
 
 The FAQ uses native HTML details/summary controls, with no added JavaScript. Each
 question supports keyboard toggling, visible focus and an open/closed indicator.
-Answers use the campaign terms supplied by the user: the VIP/renewal waitlist opens
-November 10; public pricing opens November 27 at 6 a.m. PST; The Blackout ends on
-November 30 at 11:59 p.m. PST. These dates are informational;
-the user manages actual sale availability. Returning members
-whose membership ended at least six months ago use the new-member annual offer.
+The six questions omit sale timing. The returning-member answer directs guests to
+the new-member Annual Membership without specifying a minimum break. The user
+manages actual sale availability.
 TNT Coaching requires an annual membership. All Fire Pass classes must be used by
 March 31, 2027, with a limit of two passes per person. These are presentation copy;
 Mindbody remains responsible for actual eligibility, pricing and expiration rules.
@@ -337,7 +335,7 @@ keyboard dismissal and responsive layout are verified in the browser.
 
 ## Project files
 
-- `index.html`: semantic page content and seven native FAQ disclosures with answers.
+- `index.html`: semantic page content and six native FAQ disclosures with answers.
 - `src/styles.css` and `src/tokens.css`: responsive layout and design tokens.
 - `src/main.ts`: opening-section sizing, anchor navigation and feature bindings.
 - `src/intro-scroll.ts`: safe scroll positions for pinned opening content.
