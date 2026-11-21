@@ -1,0 +1,11 @@
+:root {
+  --background: #0b0a0a;
+  --foreground: #f8f6f3;
+  --accent: #f26a3d;
+  --accent-tint: #f26a3d14;
+  --button-hover: color-mix(in srgb, var(--accent) 90%, var(--foreground));
+  --muted: #c6bbb5;
+  --border: #3b302b;
+  --card-background: #201b19;
+  --button-foreground: #101010;
+}
