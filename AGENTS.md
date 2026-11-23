@@ -58,6 +58,11 @@ The sale's official name is **The Blackout**; use it consistently in campaign co
   runtime origins and production hosting headers in sync with src/security-policy.ts.
 - Keep the server bound to loopback for local testing. Do not publish or create
   cloud resources as part of local environment setup.
+- The Netlify production target is `infernoblackfriday2026`, connected to `main`.
+  `netlify.toml` selects Node 24, `npm run check` and `dist/`. Generate `_headers`
+  from the shared security policy; keep development WebSocket exceptions out of
+  production. Ignore local `.netlify/` state. Preserve the existing noindex/robots
+  settings until the user chooses to enable search indexing.
 - Use Node 24, the lockfile and exact dependency versions. Keep current stable
   versions compatible with each other. Do not change the system Node installation.
 - Build for small screens with semantic HTML, keyboard access, visible focus,

@@ -197,14 +197,15 @@ Escape closes the native dialog when focus is in the parent page;
 keys inside the cross-origin Mindbody frame do not bubble to its parent.
 Prices, eligibility, contracts and actual checkout remain managed in Mindbody.
 
-`src/security-policy.ts` defines the development and preview security headers.
+`src/security-policy.ts` defines the development, preview and Netlify security headers.
 It allows the official loader URLs, its Mindbody frame and loading image, and
 Google tag/analytics origins used by the supplied vendor loader. The widget
 requires injected inline CSS, so inline styles are allowed in production as well
 as development. Inline and evaluated JavaScript remain blocked, with no wildcard
 origins. Payment permission is delegated only to this site and the Mindbody frame;
-camera, microphone and geolocation stay denied. The same policy must be installed
-in the eventual production host; Vite preview is not a deployment configuration.
+camera, microphone and geolocation stay denied. The build generates `dist/_headers`
+from the same restricted production policy for Netlify; no development WebSocket
+exception is included. Vite preview is not a deployment configuration.
 
 The development server is restricted to this project root. Its file deny list also
 blocks local diagnostics, original uploads, helper scripts, documentation, Git and
@@ -341,7 +342,9 @@ keyboard dismissal and responsive layout are verified in the browser.
 - `src/intro-scroll.ts`: safe scroll positions for pinned opening content.
 - `src/package-dialogs.ts`: package modal routing, scroll lock and dismissal.
 - `src/mindbody-checkout.ts`: supplied CTA mappings, on-demand loading, frame navigation and retry.
-- `src/security-policy.ts`: narrowly scoped development and preview headers.
+- `src/security-policy.ts`: shared development, preview and production hosting policies.
+- `scripts/write-hosting-headers.mjs`: generates Netlify's `_headers` file after Vite builds.
+- `netlify.toml`: Node 24, checked build command and `dist` publish directory.
 - `scripts/package-dialogs.test.mjs`: modal controller behavior tests.
 - `scripts/intro-scroll.test.mjs`: offer navigation and focus visibility regressions.
 - `scripts/mindbody-checkout.test.mjs`: lazy loading, duplicate prevention, failures and cleanup.
@@ -359,10 +362,26 @@ public; private credentials must never enter browser bundles.
 This directory has its own Git repository, separate from the parent TNT app and
 Planksgiving. Its remote is
 [InfernoTeamLV/Black-Friday-2026-Landing-Page](https://github.com/InfernoTeamLV/Black-Friday-2026-Landing-Page),
-with `main` as the primary branch. Its parent TNT repository ignores it. Hosting
-and deployment are not configured.
+with `main` as the primary branch. Its parent TNT repository ignores it.
 
-This preview includes `noindex` metadata and a blocking `robots.txt`. These are
-indexing hints, not access controls. Before launch, review those settings, final
-copy, real checkout configuration, mobile/keyboard behavior, hosting headers and
-rollback instructions. Vite preview is a local check, not a production host.
+## Netlify deployment
+
+The production target is
+[infernoblackfriday2026.netlify.app](https://infernoblackfriday2026.netlify.app/),
+connected to the repository's `main` branch. `netlify.toml` selects Node 24,
+runs `npm run check` and publishes only `dist/`. The declared Node 24 development
+types make the build independent of packages installed in the parent workspace.
+
+Generated hosting headers reuse the tested CSP and payment permissions. HTML
+revalidates on each visit; hashed JavaScript and CSS use one-year immutable caching.
+Images and fonts retain Netlify's default cache revalidation. Local `.netlify/`
+state is ignored by Git and blocked by the development server. No account token
+or environment variable is required by the page.
+
+The existing `noindex` metadata and blocking `robots.txt` remain until the user
+chooses to enable search indexing. These are indexing hints, not access controls.
+Verify live headers, responsive layout and Mindbody checkout after publishing.
+Mindbody owns eligibility, pricing, expiration and payment; the Fire Pass expiration
+discrepancy documented in `docs/MINDBODY-DIALOG-WIDTH.md` still needs to be reconciled.
+If a published change needs reverting, revert its Git commit and push the correction
+through the same checked deployment path. Vite preview is only a local check.

@@ -27,6 +27,7 @@ export default defineConfig({
         "**/*.{crt,pem,key}",
         "**/.git/**",
         "**/.local/**",
+        "**/.netlify/**",
         "**/.codex/**",
         "**/.agents/**",
         "**/.aws/**",

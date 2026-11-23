@@ -11,7 +11,7 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "test": "node --test scripts/package-dialogs.test.mjs scripts/intro-scroll.test.mjs scripts/mindbody-checkout.test.mjs scripts/security-policy.test.mjs scripts/build-output-policy.test.mjs",
-    "build": "npm run typecheck && vite build && node scripts/check-build.mjs",
+    "build": "npm run typecheck && vite build && node scripts/write-hosting-headers.mjs && node scripts/check-build.mjs",
     "preview": "vite preview",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
@@ -19,6 +19,7 @@
     "security:check": "npm audit --audit-level=low"
   },
   "devDependencies": {
+    "@types/node": "24.19.2",
     "prettier": "3.10.1",
     "typescript": "7.0.2",
     "vite": "8.3.8"

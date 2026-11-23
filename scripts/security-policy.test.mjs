@@ -4,7 +4,11 @@ import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { isFileServingAllowed, normalizePath, resolveConfig } from "vite";
 import viteConfig from "../vite.config.ts";
-import { buildContentSecurityPolicy, securityHeaders } from "../src/security-policy.ts";
+import {
+  buildContentSecurityPolicy,
+  buildHostingHeaders,
+  securityHeaders
+} from "../src/security-policy.ts";
 import { createPrivateFileGuard } from "./private-file-guard.ts";
 const directives = (development) =>
   new Map(
@@ -44,6 +48,7 @@ test("private paths are rejected before import transforms without disclosing loc
   const guard = createPrivateFileGuard(config);
   for (const path of [
     "/.local/canary.txt",
+    "/.netlify/state.json",
     "/%2elocal/canary.txt",
     "/.git/config",
     "/.env.local",
@@ -110,6 +115,7 @@ test("the development server excludes private files and the parent workspace", a
     ".env.local",
     ".git/config",
     ".local/node24.txt",
+    ".netlify/state.json",
     ".local/loading-ui-preview.html",
     ".aws/credentials",
     "design-assets/original.png",
@@ -153,4 +159,28 @@ test("payment permission is limited to this page and Mindbody", () => {
   );
   assert.equal(securityHeaders["X-Content-Type-Options"], "nosniff");
   assert.equal(securityHeaders["X-Frame-Options"], "DENY");
+});
+
+test("Netlify headers preserve production security and cache only hashed assets immutably", () => {
+  const [general, root, html, assets] = buildHostingHeaders().trimEnd().split("\n\n");
+  assert.ok(general.startsWith("/*\n"));
+  for (const [name, value] of Object.entries(securityHeaders)) {
+    if (name === "Cache-Control") continue;
+    assert.ok(general.includes(`  ${name}: ${value}\n`));
+  }
+  assert.ok(
+    general.includes(`  Content-Security-Policy: ${buildContentSecurityPolicy(false)}`)
+  );
+  assert.ok(!general.includes("Cache-Control"));
+  assert.ok(!general.includes("ws://"));
+  assert.ok(!general.includes("immutable"));
+  assert.equal(root, "/\n  Cache-Control: public, max-age=0, must-revalidate");
+  assert.equal(
+    html,
+    "/index.html\n  Cache-Control: public, max-age=0, must-revalidate"
+  );
+  assert.equal(
+    assets,
+    "/assets/*\n  Cache-Control: public, max-age=31536000, immutable"
+  );
 });

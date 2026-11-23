@@ -24,3 +24,28 @@ export const securityHeaders = {
     'camera=(), microphone=(), geolocation=(), payment=(self "https://go.mindbodyonline.com")',
   "Cache-Control": "no-store"
 };
+
+// Netlify reads this generated file from dist. Keep the production policy in
+// sync with local preview, while allowing immutable caching only for hashed assets.
+export function buildHostingHeaders(): string {
+  const headers = {
+    ...securityHeaders,
+    "Content-Security-Policy": buildContentSecurityPolicy(false)
+  };
+  return [
+    "/*",
+    ...Object.entries(headers)
+      .filter(([name]) => name !== "Cache-Control")
+      .map(([name, value]) => `  ${name}: ${value}`),
+    "",
+    "/",
+    "  Cache-Control: public, max-age=0, must-revalidate",
+    "",
+    "/index.html",
+    "  Cache-Control: public, max-age=0, must-revalidate",
+    "",
+    "/assets/*",
+    "  Cache-Control: public, max-age=31536000, immutable",
+    ""
+  ].join("\n");
+}
