@@ -238,13 +238,11 @@ support; supported reduced-transparency and increased-contrast preferences also
 remove the blur and use opaque panels. Card copy is lightened for contrast.
 See [backdrop-filter](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/backdrop-filter).
 
-The lower Find your fire section uses the supplied square photograph of a cycling
-instructor leading a class, encoded as 560px and 1024px AVIF assets with WebP
-fallbacks. The original
-upload is retained in `design-assets/hero-cycling-instructor-original.png` and was
-refreshed from the latest supplied attachment. The header logo links to
-`https://infernopilates.com/`. The
-previous shoulder-training original remains archived in `design-assets/`.
+The lower Find your fire section uses the supplied studio-class photograph,
+encoded as 560px and 1024px square AVIF assets with WebP fallbacks. The original
+upload is retained in `design-assets/hero-studio-class-original.png`. The header
+logo links to `https://infernopilates.com/`. The previous cycling-instructor and
+shoulder-training originals remain archived in `design-assets/`.
 The photo fills the panel with a centered crop at every breakpoint; the existing
 edge and lower vignette preserves contrast for the class list and caption.
 Static CSS lighting layers add restrained red accents to both photographs,
