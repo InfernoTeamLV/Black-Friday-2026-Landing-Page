@@ -353,6 +353,7 @@ h2 > span {
 .offer-title {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: baseline;
   gap: 0.65rem clamp(0.75rem, 1.5vw, 1.5rem);
   margin: 0;
